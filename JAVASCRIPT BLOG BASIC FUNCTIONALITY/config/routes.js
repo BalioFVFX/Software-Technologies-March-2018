@@ -13,6 +13,8 @@ module.exports = (app) => {
 
     app.get('/article/details/:id', articleController.details);
 
+    app.get('/user/details', userController.detailsGet);
+
     app.get('/user/logout', userController.logout);
 
     app.get('/', homeController.index)

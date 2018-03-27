@@ -7,9 +7,13 @@ module.exports = {
     loginGet: (req, res) =>{
         res.render('user/login');
     },
+    detailsGet:(req, res) => {
+        res.render('user/details', {user:req.user.dataValues.fullName, email:req.user.dataValues.email});
+
+    },
     loginPost:(req, res) => {
         let loginArgs = req.body;
-
+        console.log(loginArgs);
 
         User.findOne({where: {email: loginArgs.email}}).then(user => {
             if(!user ||!user.authenticate(loginArgs.password)){
