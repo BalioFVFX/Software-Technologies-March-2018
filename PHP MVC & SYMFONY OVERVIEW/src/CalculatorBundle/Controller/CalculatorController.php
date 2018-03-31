@@ -44,6 +44,9 @@ class CalculatorController extends Controller
                 case '/':
                     $result = $calculator->getLeftOperand() / $calculator->getRightOperand();
                     break;
+                case '%':
+                    $result = $calculator->getLeftOperand() % $calculator->getRightOperand();
+                    break;
             }
             return $this->render('calculator/index.html.twig', ['result' => $result, 'calculator' => $calculator, 'form' => $form->createView()]);
         }
