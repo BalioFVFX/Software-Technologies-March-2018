@@ -9,21 +9,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('email', TextType::class)->add('password', TextType::class)->add('fullName',TextType::class);
-    }/**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'SoftUniBlogBundle\Entity\User'
-        ));
+        $builder->add("email", TextType::class)
+            ->add("password", TextType::class)
+            ->add("fullName", TextType::class);
     }
 
+    public function configureOptions(OptionsResolver $resolver)
+    {
+
+    }
 
 }

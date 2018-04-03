@@ -11,10 +11,12 @@ class HomeController extends Controller
 {
     /**
      * @Route("/", name="blog_index")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
         $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
-        return $this->render("blog/index.html.twig", ["articles" => $articles]);
+        return $this->render("blog/index.html.twig", ['articles' => $articles]);
     }
 }

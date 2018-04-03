@@ -28,6 +28,7 @@ class User implements UserInterface
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
+
     private $email;
 
     /**
@@ -38,6 +39,13 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="SoftUniBlogBundle\Entity\Article", mappedBy="author")
+     */
+    private $articles;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="fullName", type="string", length=255)
@@ -45,18 +53,11 @@ class User implements UserInterface
     private $fullName;
 
 
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="SoftUniBlogBundle\Entity\Article", mappedBy="author")
-     */
-    private $article;
-
     public function __construct()
     {
-        $this->article = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
+
 
     /**
      * Get id
@@ -197,9 +198,9 @@ class User implements UserInterface
     /**
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticle()
+    public function getArticles()
     {
-        return $this->article;
+        return $this->articles;
     }
 
     /**
@@ -207,9 +208,8 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function addPost(Article $article)
-    {
-        $this->article = $article;
+    public function addPost(Article $article){
+        $this->articles[] = $article;
 
         return $this;
     }

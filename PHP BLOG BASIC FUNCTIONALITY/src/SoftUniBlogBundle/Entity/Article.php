@@ -2,15 +2,12 @@
 
 namespace SoftUniBlogBundle\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use SoftUniBlogBundle\SoftUniBlogBundle;
-
 
 /**
  * Article
  *
- * @ORM\Table(name="article")
+ * @ORM\Table(name="articles")
  * @ORM\Entity(repositoryClass="SoftUniBlogBundle\Repository\ArticleRepository")
  */
 class Article
@@ -52,29 +49,31 @@ class Article
 
     /**
      * @var int
+     *
      * @ORM\Column(name="authorId", type="integer")
      */
     private $authorId;
-
-    /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="SoftUniBlogBundle\Entity\User", inversedBy="article")
-     * @ORM\JoinColumn(name="authorId", referencedColumnName="id")
-     */
-    private $author;
-
-    public function __construct()
-    {
-        $this->dateAdded = new DateTime('now');
-    }
-
 
     /**
      * Get id
      *
      * @return int
      */
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="SoftUniBlogBundle\Entity\User", inversedBy="articles")
+     * @ORM\JoinColumn(name="authorId", referencedColumnName="id")
+     */
+    private $author;
+
+
+    public function __construct()
+    {
+        $this->dateAdded = new \DateTime('now');
+    }
+
     public function getId()
     {
         return $this->id;
@@ -157,14 +156,14 @@ class Article
      */
     public function getSummary()
     {
-        if($this->summary == null){
+        if($this->summary === null){
             $this->setSummary();
         }
         return $this->summary;
     }
 
     /**
-     * @param string
+     * @param string $summary
      */
     public function setSummary()
     {
@@ -180,13 +179,14 @@ class Article
     }
 
     /**
-     * @param int $authorId
+     * @param integer $authorId
      *
      * @return Article
      */
     public function setAuthorId($authorId)
     {
         $this->authorId = $authorId;
+
         return $this;
     }
 
@@ -203,13 +203,11 @@ class Article
      *
      * @return Article
      */
-    public function setAuthor(User $author = null)
+    public function setAuthor($author)
     {
         $this->author = $author;
 
         return $this;
     }
-
-
 }
 
