@@ -21,7 +21,6 @@ namespace _0._2_TODO_List.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
         [HttpGet]
         public ActionResult Delete(int? id)
         {
@@ -66,6 +65,39 @@ namespace _0._2_TODO_List.Controllers
 
                 return RedirectToAction("Details", "Home", new { id });
             } 
+        }
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            if(id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            using (var db = new TaskDbContext())
+            {
+                var task = db.tasks.Find(id);
+
+                if(task == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                return RedirectToAction("Edit", "Home", new { id });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Task task)
+        {
+
+            using (var db = new TaskDbContext())
+            {
+
+                db.tasks.Add(task);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

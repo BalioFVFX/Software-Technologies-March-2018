@@ -26,5 +26,16 @@ namespace _0._2_TODO_List.Controllers
                 return View(task);
             }
         }
+
+        public IActionResult Edit(int id)
+        {
+            using (var db = new TaskDbContext())
+            {
+                var task = db.tasks.Find(id);
+
+                return View(task);
+            }
+        }
+
     }
 }
